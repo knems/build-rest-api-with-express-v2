@@ -2,14 +2,17 @@
 
 // load modules
 const express = require('express'),
+		 mongoose = require('mongoose'),
+		 	 course = require('./models/course'),
+			 review = require('./models/review'),
+				 user = require('./models/user'),
  			 morgan = require('morgan'),
 			  	app = express(),
 				 path = require('path'),
 	 jsonParser = require('body-parser').json,
 	    courses = require('./routes/courses'),
 			 seeder = require('mongoose-seeder'),
-			   data = require('./data/data.json'),
-		 mongoose = require('mongoose');
+			   data = require('./data/data.json');
 
 const db = mongoose.connect('mongodb://localhost:27017/test', {
    useMongoClient: true
@@ -21,6 +24,7 @@ db.once('open', function() {
 	// Drop the entire database (default behaviour)
 	seeder.seed(data, {dropDatabase: true}).then(function(dbData) {
 	    console.log('seeder has seeded');
+			console.log(dbData);
 	}).catch(function(err) {
 	    console.log(err);
 	});
